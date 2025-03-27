@@ -1,0 +1,67 @@
+# Principal ID to assign the Reader role (Client ID of the App Registration)
+$principalId = "00000000-0000-0000-0000-000000000000"
+
+# Log in to Azure (if required)
+# az login
+
+# Get the list of all subscriptions
+$subscriptions = az account list --query "[].id" -o tsv
+
+# Loop through each subscription and assign the Reader role
+foreach ($subscription in $subscriptions) {
+    Write-Output "Processing subscription: $subscription"
+    az account set --subscription $subscription
+
+    # Assign the Reader role
+    az role assignment create --assignee $principalId --role Reader --scope "/subscriptions/$subscription"
+    Write-Output "Reader role assigned to $principalId for subscription $subscription"
+}
+
+Write-Output "Role assignment complete for all subscriptions."
+
+#-------------------------------------------------------------------------------------------
+
+# Principal ID to assign the Billing Reader role
+$principalId = "00000000-0000-0000-0000-000000000000"
+
+# Log in to Azure
+# az login
+
+# Get the list of all subscriptions
+$subscriptions = az account list --query "[].id" -o tsv
+
+# Loop through each subscription and assign the Billing Reader role
+foreach ($subscription in $subscriptions) {
+    Write-Output "Processing subscription: $subscription"
+    az account set --subscription $subscription
+
+    # Assign the Reader and Billing Reader roles
+    az role assignment create --assignee $principalId --role Reader --scope "/subscriptions/$subscription"
+    az role assignment create --assignee $principalId --role "Billing Reader" --scope "/subscriptions/$subscription"
+    Write-Output "2x Roles assigned to $principalId for subscription $subscription"
+}
+
+Write-Output "Role assignment complete for all subscriptions."
+
+#-------------------------------------------------------------------------------------------
+
+# User account to assign the Owner role
+$useracc = "user.account@company.co.uk"
+
+# Log in to Azure
+# az login
+
+# Get the list of all subscriptions
+$subscriptions = az account list --query "[].id" -o tsv
+
+# Loop through each subscription and assign the Owner role
+foreach ($subscription in $subscriptions) {
+    Write-Output "Processing subscription: $subscription"
+    az account set --subscription $subscription
+
+    # Assign the Owner role
+    az role assignment create --assignee $useracc --role "Owner" --scope "/subscriptions/$subscription"
+    Write-Output "Owner role assigned to $useracc for subscription $subscription"
+}
+
+Write-Output "Role assignment complete for all subscriptions."

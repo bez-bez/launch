@@ -1,0 +1,11 @@
+# Make sure to sign in using the admin account for the subscription 
+# Make sure the app registration has been completed already 
+
+# Connect-AzAccount -UseDeviceAuthentication # if using local powershell 
+# Get-AzSubscription # if using local powershell 
+
+$spndisplayname = "sigma-deployment" # this is the name of the app registration
+$spn = (Get-AzADServicePrincipal -DisplayName $spndisplayname).id 
+$spn #to check ID is shown if nothing something is wrong! 
+
+New-AzRoleAssignment -Scope '/' -RoleDefinitionName 'Owner' -ObjectId $spn 

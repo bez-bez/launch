@@ -1,0 +1,96 @@
+az account set --subscription "00000000-0000-0000-0000-000000000000"
+
+# List of resource providers to check and register
+$resourceProviders = @(
+    "Microsoft.Management",
+    "Microsoft.KeyVault",
+    "Microsoft.Devices",
+    "Microsoft.Databricks",
+    "Microsoft.DevTestLab",
+    "Microsoft.ManagedServices",
+    "Microsoft.Maintenance",
+    "Microsoft.AVS",
+    "Microsoft.DBforPostgreSQL",
+    "Microsoft.ContainerInstance",
+    "Microsoft.StreamAnalytics",
+    # "Microsoft.PowerBIDedicated",
+    "Microsoft.ServiceBus",
+    "Microsoft.Web",
+    "Microsoft.NotificationHubs",
+    "Microsoft.Network",
+    "Microsoft.ContainerService",
+    "Microsoft.Cdn",
+    "Microsoft.AppPlatform",
+    "Microsoft.GuestConfiguration",
+    "Microsoft.EventHub",
+    "Microsoft.Logic",
+    "Microsoft.SignalRService",
+    "Microsoft.DataFactory",
+    "Microsoft.ManagedIdentity",
+    "Microsoft.Automation",
+    "Microsoft.Search",
+    "Microsoft.Relay",
+    "Microsoft.CustomProviders",
+    "Microsoft.EventGrid",
+    "Microsoft.MixedReality",
+    "Microsoft.DataLakeAnalytics",
+    "Microsoft.DBforMariaDB",
+    "Microsoft.OperationalInsights",
+    "Microsoft.DataLakeStore",
+    "Microsoft.Cache",
+    "Microsoft.Storage",
+    "Microsoft.DocumentDB",
+    "Microsoft.OperationsManagement",
+    "microsoft.insights",
+    "Microsoft.PolicyInsights",
+    "Microsoft.AppConfiguration",
+    "Microsoft.ApiManagement",
+    "Microsoft.HDInsight",
+    "Microsoft.RecoveryServices",
+    "Microsoft.ServiceFabric",
+    "Microsoft.Security",
+    "Microsoft.Media",
+    "Microsoft.ContainerRegistry",
+    "Microsoft.HealthcareApis",
+    "Microsoft.CognitiveServices",
+    "Microsoft.DesktopVirtualization",
+    "Microsoft.DataMigration",
+    "Microsoft.Blueprint",
+    "Microsoft.BotService",
+    "Microsoft.DBforMySQL",
+    "Microsoft.Compute",
+    "Microsoft.MachineLearningServices",
+    "Microsoft.Maps",
+    "Microsoft.Kusto",
+    "Microsoft.SecurityInsights",
+    "Microsoft.DataProtection",
+    "Microsoft.Sql",
+    "Microsoft.ADHybridHealthService",
+    "Microsoft.Authorization",
+    "Microsoft.Consumption",
+    "Microsoft.CostManagement",
+    "Microsoft.Features",
+    "Microsoft.MarketplaceOrdering",
+    "Microsoft.Portal",
+    "Microsoft.ResourceGraph",
+    "Microsoft.ResourceNotifications",
+    "Microsoft.Resources",
+    "Microsoft.SerialConsole",
+    "microsoft.support"
+)
+
+# Loop through each resource provider
+foreach ($provider in $resourceProviders) {
+    # Check the registration state of the resource provider
+    $state = az provider show --namespace $provider --query "registrationState" -o tsv
+
+    # If the provider is not registered, register it
+    if ($state -ne "Registered") {
+        Write-Host "Registering $provider..."
+        az provider register --namespace $provider
+    }
+    else {
+        Write-Host "$provider is already registered."
+    }
+}
+

@@ -1,4 +1,4 @@
-# az-cli
+# launch
 
 #### Table of Contents
 
@@ -21,6 +21,7 @@ Alternatively, log in via PowerShell and run commands locally.
 | Name | Version |
 |------|---------|
 | <a name="requirement_azcli"></a> [az-cli](#requirement\_azcli) | https://learn.microsoft.com/en-us/cli/azure/install-azure-cli |
+| <a name="requirement_powershell"></a> [powershell](#requirement\_powershell) | https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.5 |
 
 ## Inputs
 
@@ -38,7 +39,7 @@ No resources.
 
 | Name |
 |------|
-| az-cli |
+| launch |
 
 <!-- END_AZCLI_DOCS -->
 _______________

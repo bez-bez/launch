@@ -1,0 +1,3 @@
+# use to create a sql virtual machine
+# you need to do this if you create a VM with SQL Server installed so you can managed it via the portal
+az sql vm create --name sql-express-vm --resource-group rg-workload --location uksouth --sql-mgmt-type Full --license-type PAYG
